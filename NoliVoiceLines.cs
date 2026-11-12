@@ -69,7 +69,9 @@ namespace rans0m
             new("JX1DX1Rage2.mp3", "THE.CLOCK.IS.TICKING"),
             new("JX1DX1Laugh1.mp3", "[LAUGHTER]"),
             new("JX1DX1IdleUnused1.mp3", "PERHAPS.YOU.WILL.BE.NEXT.PLAYER"),
-            new("JX1DX1IdleUnused2.mp3", "YOU.ARE.HEARTLESS.WE.WILL.GET.ALONG.FINE")
+            new("JX1DX1IdleUnused2.mp3", "YOU.ARE.HEARTLESS.WE.WILL.GET.ALONG.FINE"),
+            new("Jx1LMSthing.wav", "OH.HOW.FUNNY.IT.IS. NO.MATTER.HOW.FAR.YOU.THINK.YOU.CAN.RUN. I.WILL.ALWAYS.BE.THERE. RIGHT.BEHIND.YOU."),
+            new("Jx1killdeivy.wav", "I.HAVE.ALWAYS.BEEN.HERE")
         };
 
         public static bool TryPlayRandom(Window window)
@@ -83,7 +85,9 @@ namespace rans0m
                 try
                 {
                     Stream stream = Global.GetResourceSteam("Sounds/Noli/" + line.File);
-                    var reader = new Mp3FileReader(stream);
+                    WaveStream reader = line.File.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
+                        ? new WaveFileReader(stream)
+                        : new Mp3FileReader(stream);
                     var output = new WaveOutEvent();
                     output.Init(reader);
                     output.PlaybackStopped += (_, _) =>
