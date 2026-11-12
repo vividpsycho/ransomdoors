@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download audio linked from the JX1DX1 Noli scrapped-skin page."""
+"""Download all public audio files linked from the JX1DX1 Noli scrapped-skin page."""
 from __future__ import annotations
 
 import html
@@ -46,18 +46,34 @@ def discover_files() -> list[str]:
     if found:
         return sorted(found)
 
-    # Try MediaWiki's links API if HTML structure changes.
-    parsed = api({
-        "action": "parse", "page": "Noli/Skins/Scrapped", "prop": "links",
-        "plnamespace": "6", "pllimit": "max", "format": "json",
-        "formatversion": "2",
-    })
-    return sorted({
-        item["title"].removeprefix("File:")
-        for item in parsed.get("parse", {}).get("links", [])
-        if item.get("title", "").startswith("File:")
-        and Path(item["title"].removeprefix("File:")).suffix.lower() in AUDIO_EXTENSIONS
-    })
+    # Use the query links API as a second source. Unlike parse/links, this
+    # endpoint supports continuation and returns namespace IDs explicitly.
+    found = set()
+    continuation: dict[str, str] = {}
+    while True:
+        params = {
+            "action": "query",
+            "titles": "Noli/Skins/Scrapped",
+            "prop": "links",
+            "plnamespace": "6",
+            "pllimit": "max",
+            "format": "json",
+            "formatversion": "2",
+            **continuation,
+        }
+        result = api(params)
+        pages = result.get("query", {}).get("pages", [])
+        for page_data in pages:
+            for item in page_data.get("links", []):
+                title = item.get("title", "")
+                if title.startswith("File:"):
+                    name = title.removeprefix("File:")
+                    if Path(name).suffix.lower() in AUDIO_EXTENSIONS:
+                        found.add(name)
+        continuation = result.get("continue", {})
+        if not continuation:
+            break
+    return sorted(found)
 
 
 def main() -> int:
