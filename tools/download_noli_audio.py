@@ -1,52 +1,77 @@
 #!/usr/bin/env python3
-"""Download audio files linked from the JX1DX1 Noli scrapped-skin page.\n\nVoice-line assets are consumed by NoliVoiceLines.cs; other linked audio is retained\nfor later use by the project.\n"""
+"""Download audio linked from the JX1DX1 Noli scrapped-skin page."""
 from __future__ import annotations
 
+import html
 import json
+import re
 import sys
 import time
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import quote, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 
-API = "https://forsaken2024.fandom.com/api.php"
-PAGE = "Noli/Skins/Scrapped"
+BASE = "https://forsaken2024.fandom.com"
+PAGE_URL = BASE + "/wiki/Noli/Skins/Scrapped"
+API = BASE + "/api.php"
 OUTPUT = Path("Assets/Sounds/Noli")
 AUDIO_EXTENSIONS = {".mp3", ".ogg", ".oga", ".wav"}
 
 
-def api(params: dict[str, str]) -> dict:
-    request = Request(
-        API + "?" + urlencode(params),
-        headers={"User-Agent": "ransomdoors-audio-asset-fetcher/1.0 (GitHub Actions)"},
-    )
+def fetch(url: str) -> bytes:
+    request = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; ransomdoors-audio-fetcher/1.0)"})
     with urlopen(request, timeout=45) as response:
-        return json.load(response)
+        return response.read()
 
 
-def main() -> int:
-    print(f"Reading file links from {PAGE}")
+def api(params: dict[str, str]) -> dict:
+    data = fetch(API + "?" + urlencode(params))
+    return json.loads(data)
+
+
+def discover_files() -> list[str]:
+    # The Fandom parse/links endpoint currently returns an empty links array for this page.
+    # Parse the public page HTML as a fallback, then resolve each File page through imageinfo.
+    page = fetch(PAGE_URL).decode("utf-8", errors="replace")
+    found = set()
+    for raw in re.findall(r'''href=["']([^"']*?/wiki/File:[^"'#?]+)''', page, flags=re.IGNORECASE):
+        path = urlparse(html.unescape(raw)).path
+        marker = "/wiki/File:"
+        if marker not in path:
+            continue
+        name = unquote(path.split(marker, 1)[1]).replace("_", " ")
+        if Path(name).suffix.lower() in AUDIO_EXTENSIONS:
+            found.add(name)
+    if found:
+        return sorted(found)
+
+    # Try MediaWiki's links API if HTML structure changes.
     parsed = api({
-        "action": "parse", "page": PAGE, "prop": "links",
+        "action": "parse", "page": "Noli/Skins/Scrapped", "prop": "links",
         "plnamespace": "6", "pllimit": "max", "format": "json",
         "formatversion": "2",
     })
-    links = parsed.get("parse", {}).get("links", [])
-    names = sorted({
+    return sorted({
         item["title"].removeprefix("File:")
-        for item in links
+        for item in parsed.get("parse", {}).get("links", [])
         if item.get("title", "").startswith("File:")
         and Path(item["title"].removeprefix("File:")).suffix.lower() in AUDIO_EXTENSIONS
     })
+
+
+def main() -> int:
+    print("Reading audio links from the JX1DX1 scrapped-skin page")
+    names = discover_files()
     if not names:
-        print("No audio file links were returned by the wiki API.", file=sys.stderr)
+        print("No audio file links found in the public page HTML or API.", file=sys.stderr)
         return 1
 
     OUTPUT.mkdir(parents=True, exist_ok=True)
     downloaded = skipped = failed = 0
     for name in names:
-        target = OUTPUT / name.replace("/", "_").replace(" ", "_")
+        safe_name = name.replace("/", "_").replace(" ", "_")
+        target = OUTPUT / safe_name
         if target.exists() and target.stat().st_size:
             skipped += 1
             continue
@@ -58,21 +83,16 @@ def main() -> int:
             })
             pages = result.get("query", {}).get("pages", [])
             info = pages[0].get("imageinfo", []) if pages else []
-            if not info:
-                raise RuntimeError("no downloadable URL returned")
-            request = Request(
-                info[0]["url"],
-                headers={"User-Agent": "ransomdoors-audio-asset-fetcher/1.0"},
-            )
-            with urlopen(request, timeout=90) as response:
-                data = response.read()
+            if not info or not info[0].get("url"):
+                raise RuntimeError("Fandom did not return a file URL")
+            data = fetch(info[0]["url"])
             if not data:
                 raise RuntimeError("empty response")
             target.write_bytes(data)
             downloaded += 1
             print(f"Downloaded {target.name} ({len(data):,} bytes)")
-            time.sleep(0.2)
-        except (HTTPError, URLError, KeyError, IndexError, RuntimeError, TimeoutError) as exc:
+            time.sleep(0.15)
+        except (HTTPError, URLError, KeyError, IndexError, RuntimeError, TimeoutError, ValueError) as exc:
             failed += 1
             print(f"FAILED {name}: {exc}", file=sys.stderr)
 
