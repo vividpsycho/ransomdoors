@@ -50,9 +50,9 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.1.0
+          tag_name: v2.1.1
           target_commitish: ${{ github.sha }}
-          name: RANS0M v2.1.0
+          name: RANS0M v2.1.1
           body: |
             Windows x64 release of RANS0M.
 

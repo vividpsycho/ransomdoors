@@ -49,6 +49,10 @@ namespace rans0m
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/idiot.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/tauntface.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/tauntflower.png"),
+                        // User-provided RANS0M/JX1DX1 reference artwork.
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_1.png"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_2.png"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_3.jpg"),
                     };
                 }
                 return _tauntImages;
