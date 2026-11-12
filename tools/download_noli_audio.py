@@ -35,32 +35,75 @@ def api(params: dict[str, str]) -> dict:
     return json.loads(data)
 
 
+VOICE_FILES = [
+    "JX1DX1Intro1.mp3",
+    "JX1DX1IntroUnused.mp3",
+    "JX1DX1Intro2.mp3",
+    "JX1DX1Outro.mp3",
+    "JX1DX1VoidRushStartup1.mp3",
+    "JX1DX1VoidRushStartup2.mp3",
+    "JX1DX1VoidRushStartup3.mp3",
+    "JX1DX1VoidRushSlam1.mp3",
+    "JX1DX1VoidRushSlam2.mp3",
+    "JX1DX1VoidRushCrash.mp3",
+    "JX1DX1Nova1.mp3",
+    "JX1DX1Nova2.mp3",
+    "JX1DX1Nova3.mp3",
+    "JX1DX1ObservantStartup1.mp3",
+    "JX1DX1ObservantStartup2.mp3",
+    "JX1DX1ObservantTeleport1.mp3",
+    "JX1DX1ObservantTeleport2.mp3",
+    "JX1DX1Hallucination.mp3",
+    "JX1DX1Stun1.mp3",
+    "JX1DX1Stun2.mp3",
+    "JX1DX1Stun3.mp3",
+    "JX1DX1Stun4.mp3",
+    "JX1DX1Kill1.mp3",
+    "JX1DX1Kill2.mp3",
+    "JX1DX1Kill3.mp3",
+    "JX1DX1Kill4.mp3",
+    "JX1DX1Kill5.mp3",
+    "JX1DX1Kill6.mp3",
+    "JX1DX1Kill007n7.mp3",
+    "JX1DX1KillDeivy.mp3",
+    "JX1DX1KillBuliderman.mp3",
+    "JX1DX1KillDragondude3.mp3",
+    "JX1DX1KillFOTL.mp3",
+    "JX1DX1KillAubree1.mp3",
+    "JX1DX1KillAubree2.mp3",
+    "JX1DX1KillAubree3.mp3",
+    "JX1DX1KillAubree4.mp3",
+    "JX1DX1KillSpiders.mp3",
+    "JX1DX1LMS1.mp3",
+    "JX1DX1LMS2.mp3",
+    "JX1DX1LMS3.mp3",
+    "Jx1LMSthing.wav",
+    "JX1DX1LMSDeivy.mp3",
+    "JX1DX1LMSDragondude3.mp3",
+    "JX1DX1LMSFOTL.mp3",
+    "JX1DX1LMSAubree.mp3",
+    "JX1DX1No1.mp3",
+    "JX1DX1No2.mp3",
+    "JX1DX1Yes1.mp3",
+    "JX1DX1Yes2.mp3",
+    "JX1DX1Taunt1.mp3",
+    "JX1DX1Taunt2.mp3",
+    "JX1DX1Rage1.mp3",
+    "JX1DX1Rage2.mp3",
+    "JX1DX1Laugh1.mp3",
+    "JX1DX1Laugh2.mp3",
+    "JX1DX1Laugh3.mp3",
+    "JX1DX1IdleUnused1.mp3",
+    "JX1DX1IdleUnused2.mp3",
+    "JX1DX1LMSAubree2.ogg",
+    "Jx1killdeivy.wav"
+]
+
+
 def discover_files() -> list[str]:
-    # The wiki lists audio as explicit File: URLs in tables. MediaWiki classifies
-    # those as external links on this page, so collect both parser link types.
-    parsed = api({
-        "action": "parse",
-        "page": "Noli/Skins/Scrapped",
-        "prop": "links|externallinks",
-        "format": "json",
-        "formatversion": "2",
-    }).get("parse", {})
-
-    candidates = set()
-    for item in parsed.get("links", []):
-        title = item.get("title", "")
-        if title.startswith("File:"):
-            candidates.add(title.removeprefix("File:"))
-    for url in parsed.get("externallinks", []):
-        path = urlparse(html.unescape(url)).path
-        marker = "/wiki/File:"
-        if marker in path:
-            candidates.add(unquote(path.split(marker, 1)[1]).replace("_", " "))
-
-    return sorted(
-        name for name in candidates
-        if Path(name).suffix.lower() in AUDIO_EXTENSIONS
-    )
+    # The wiki's public voiceline table provides these exact file names.
+    # Avoid scraping its page HTML: Fandom blocks that endpoint for CI runners.
+    return VOICE_FILES
 
 
 def main() -> int:
