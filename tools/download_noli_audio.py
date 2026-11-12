@@ -20,7 +20,12 @@ AUDIO_EXTENSIONS = {".mp3", ".ogg", ".oga", ".wav"}
 
 
 def fetch(url: str) -> bytes:
-    request = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; ransomdoors-audio-fetcher/1.0)"})
+    request = Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": BASE + "/",
+    })
     with urlopen(request, timeout=45) as response:
         return response.read()
 
@@ -31,23 +36,7 @@ def api(params: dict[str, str]) -> dict:
 
 
 def discover_files() -> list[str]:
-    # The Fandom parse/links endpoint currently returns an empty links array for this page.
-    # Parse the public page HTML as a fallback, then resolve each File page through imageinfo.
-    page = fetch(PAGE_URL).decode("utf-8", errors="replace")
-    found = set()
-    for raw in re.findall(r'''href=["']([^"']*?/wiki/File:[^"'#?]+)''', page, flags=re.IGNORECASE):
-        path = urlparse(html.unescape(raw)).path
-        marker = "/wiki/File:"
-        if marker not in path:
-            continue
-        name = unquote(path.split(marker, 1)[1]).replace("_", " ")
-        if Path(name).suffix.lower() in AUDIO_EXTENSIONS:
-            found.add(name)
-    if found:
-        return sorted(found)
-
-    # Use the query links API as a second source. Unlike parse/links, this
-    # endpoint supports continuation and returns namespace IDs explicitly.
+    # Query MediaWiki first; use page HTML only as a fallback.
     found = set()
     continuation: dict[str, str] = {}
     while True:
@@ -62,8 +51,7 @@ def discover_files() -> list[str]:
             **continuation,
         }
         result = api(params)
-        pages = result.get("query", {}).get("pages", [])
-        for page_data in pages:
+        for page_data in result.get("query", {}).get("pages", []):
             for item in page_data.get("links", []):
                 title = item.get("title", "")
                 if title.startswith("File:"):
@@ -73,6 +61,18 @@ def discover_files() -> list[str]:
         continuation = result.get("continue", {})
         if not continuation:
             break
+    if found:
+        return sorted(found)
+
+    page = fetch(PAGE_URL).decode("utf-8", errors="replace")
+    for raw in re.findall(r'''href=["']([^"']*?/wiki/File:[^"'#?]+)''', page, flags=re.IGNORECASE):
+        path = urlparse(html.unescape(raw)).path
+        marker = "/wiki/File:"
+        if marker not in path:
+            continue
+        name = unquote(path.split(marker, 1)[1]).replace("_", " ")
+        if Path(name).suffix.lower() in AUDIO_EXTENSIONS:
+            found.add(name)
     return sorted(found)
 
 
