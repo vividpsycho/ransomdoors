@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:rans0m"
         mc:Ignorable="d"
         Title="TauntWindow" Height="450" Width="800" Background="#FF320000" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Loaded="Window_Loaded">
-    <Grid>
-        
+    <Grid ClipToBounds="True">
+        <Image x:Name="tauntImage"
+               Stretch="UniformToFill"
+               RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Border Background="#33000000"/>
     </Grid>
 </Window>
