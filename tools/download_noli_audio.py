@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download every audio file linked from the JX1DX1 Noli scrapped-skin page."""
+"""Download audio files linked from the JX1DX1 Noli scrapped-skin page.\n\nVoice-line assets are consumed by NoliVoiceLines.cs; other linked audio is retained\nfor later use by the project.\n"""
 from __future__ import annotations
 
 import json
