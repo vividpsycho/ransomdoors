@@ -1,3 +1,4 @@
+using System.Windows;
 using NAudio.Wave;
 using System.IO;
 
