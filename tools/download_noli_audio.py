@@ -36,44 +36,31 @@ def api(params: dict[str, str]) -> dict:
 
 
 def discover_files() -> list[str]:
-    # Query MediaWiki first; use page HTML only as a fallback.
-    found = set()
-    continuation: dict[str, str] = {}
-    while True:
-        params = {
-            "action": "query",
-            "titles": "Noli/Skins/Scrapped",
-            "prop": "links",
-            "plnamespace": "6",
-            "pllimit": "max",
-            "format": "json",
-            "formatversion": "2",
-            **continuation,
-        }
-        result = api(params)
-        for page_data in result.get("query", {}).get("pages", []):
-            for item in page_data.get("links", []):
-                title = item.get("title", "")
-                if title.startswith("File:"):
-                    name = title.removeprefix("File:")
-                    if Path(name).suffix.lower() in AUDIO_EXTENSIONS:
-                        found.add(name)
-        continuation = result.get("continue", {})
-        if not continuation:
-            break
-    if found:
-        return sorted(found)
+    # The wiki lists audio as explicit File: URLs in tables. MediaWiki classifies
+    # those as external links on this page, so collect both parser link types.
+    parsed = api({
+        "action": "parse",
+        "page": "Noli/Skins/Scrapped",
+        "prop": "links|externallinks",
+        "format": "json",
+        "formatversion": "2",
+    }).get("parse", {})
 
-    page = fetch(PAGE_URL).decode("utf-8", errors="replace")
-    for raw in re.findall(r'''href=["']([^"']*?/wiki/File:[^"'#?]+)''', page, flags=re.IGNORECASE):
-        path = urlparse(html.unescape(raw)).path
+    candidates = set()
+    for item in parsed.get("links", []):
+        title = item.get("title", "")
+        if title.startswith("File:"):
+            candidates.add(title.removeprefix("File:"))
+    for url in parsed.get("externallinks", []):
+        path = urlparse(html.unescape(url)).path
         marker = "/wiki/File:"
-        if marker not in path:
-            continue
-        name = unquote(path.split(marker, 1)[1]).replace("_", " ")
-        if Path(name).suffix.lower() in AUDIO_EXTENSIONS:
-            found.add(name)
-    return sorted(found)
+        if marker in path:
+            candidates.add(unquote(path.split(marker, 1)[1]).replace("_", " "))
+
+    return sorted(
+        name for name in candidates
+        if Path(name).suffix.lower() in AUDIO_EXTENSIONS
+    )
 
 
 def main() -> int:
