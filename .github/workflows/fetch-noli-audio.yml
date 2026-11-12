@@ -7,8 +7,6 @@ on:
       - "tools/download_noli_audio.py"
       - ".github/workflows/fetch-noli-audio.yml"
   workflow_dispatch:
-  schedule:
-    - cron: "17 * * * *"
 
 permissions:
   contents: write
