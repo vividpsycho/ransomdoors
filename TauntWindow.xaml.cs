@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows;
 using System.Windows.Media;
 
 namespace rans0m
@@ -23,6 +24,7 @@ namespace rans0m
 
             // Sets random window title, image and size
             Title = Global.tauntTitles[Global.rng.Next(Global.tauntTitles.Count)];
+            NoliVoiceLines.TryPlayRandom(this);
             Background = new ImageBrush(Global.tauntImages[Global.rng.Next(Global.tauntImages.Count)]);
             Width = Global.rng.Next(200, 400);
             Height = Global.rng.Next(200, 400);
