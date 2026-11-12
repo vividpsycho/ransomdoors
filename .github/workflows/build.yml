@@ -1,0 +1,29 @@
+name: Build RANS0M
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.cs"
+      - "**.xaml"
+      - "**.csproj"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore
+        run: dotnet restore rans0m.csproj
+      - name: Build
+        run: dotnet build rans0m.csproj --configuration Release --no-restore
