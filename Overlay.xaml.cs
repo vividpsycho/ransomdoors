@@ -22,12 +22,6 @@ namespace rans0m
         private double _dpiScaleX = 1.0;
         private double _dpiScaleY = 1.0;
 
-        private SoundHandle spawnSound = SoundHandle.Create(Global.GetResourceSteam("Sounds/spawn.wav"));
-        private SoundHandle attackSound = SoundHandle.Create(Global.GetResourceSteam("Sounds/attack.wav"));
-        private SoundHandle installSound = SoundHandle.Create(Global.GetResourceSteam("Sounds/install.wav"));
-        private SoundHandle layer1 = SoundHandle.Create(Global.GetResourceSteam("Sounds/layer1.wav"));
-        private SoundHandle layer2 = SoundHandle.Create(Global.GetResourceSteam("Sounds/layer2.wav"));
-        private SoundHandle layer3 = SoundHandle.Create(Global.GetResourceSteam("Sounds/layer3.wav"));
 
         public Overlay()
         {
@@ -335,7 +329,6 @@ namespace rans0m
         /// <returns>true if the mouse moved during the warning phase</returns>
         public async Task<bool> RansomWarning()
         {
-            spawnSound.Play();
 
             // Shows Ransom's face randomly on the screen
             Global.RandomPosControl(img_idle);
@@ -374,7 +367,6 @@ namespace rans0m
         /// </summary>
         public async Task DownloadJumpscare()
         {
-            attackSound.Play();
 
             Global.CenterControl(img_attack);
             Thickness imgAttackCenter = img_attack.Margin; // Store the center position of the attack image for the shake effect
@@ -390,7 +382,6 @@ namespace rans0m
             // Downloading screen
             img_attack.Opacity = 0;
 
-            installSound.Play();
 
             vb_download.Opacity = 100;
 
@@ -472,8 +463,6 @@ namespace rans0m
         /// <param name="generatedGold">Total value of the coins actually generated on disk for this run</param>
         public async Task<bool> Ransomed(int generatedGold)
         {
-            WallpaperUpdater.SetDarkRedWallpaper();
-            CursorUpdater.SetInfectedCursor();
 
             // Red Flash
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
@@ -488,7 +477,7 @@ namespace rans0m
 
             brush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
 
-            redVignette.Opacity = 100;
+            redVignette.Opacity = 0;
 
             // Clamp so an unlucky generation run can never leave the ransom unpayable
             Global.ransomLeft = Math.Min(Config.RansomAmount, generatedGold);
@@ -498,9 +487,6 @@ namespace rans0m
             TaskCompletionSource<bool> paidSignal = new TaskCompletionSource<bool>();
             Global.RansomPayed = () => // Ransom payed event
             {
-                layer1.Pause();
-                layer2.Pause();
-                layer3.Pause();
 
                 this.Dispatcher.Invoke(() => ResetRansom());
                 paidSignal.TrySetResult(true);
@@ -515,20 +501,10 @@ namespace rans0m
                 ransomNotification.Show();
             }, DispatcherPriority.Normal);
 
-            int layer3Seconds = 26;
-            int remainingSeconds = Math.Max(0, Config.InfectionDuration - layer3Seconds);
-            int layer1Seconds = remainingSeconds / 2;
-            int layer2Seconds = remainingSeconds - layer1Seconds;
 
             Global.ransomTimeLeft = Config.InfectionDuration;
 
-            layer1.Reset();
-            layer2.Reset();
-            layer3.Reset();
 
-            layer1.PlayLooping();
-            bool startedLayer2 = false;
-            bool startedLayer3 = false;
 
             int elapsed = 0;
             while (elapsed < Config.InfectionDuration)
@@ -540,18 +516,6 @@ namespace rans0m
                 elapsed++;
                 Global.ransomTimeLeft = Math.Max(0, Config.InfectionDuration - elapsed);
 
-                if (!startedLayer2 && elapsed >= layer1Seconds)
-                {
-                    startedLayer2 = true;
-                    layer1.Pause();
-                    layer2.PlayLooping();
-                }
-                else if (startedLayer2 && !startedLayer3 && elapsed >= layer1Seconds + layer2Seconds)
-                {
-                    startedLayer3 = true;
-                    layer2.Pause();
-                    layer3.Play();
-                }
             }
 
             // If the code reaches here, this means the user didn't pay the ransom in time 
