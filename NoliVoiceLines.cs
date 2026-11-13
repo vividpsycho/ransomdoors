@@ -93,6 +93,10 @@ namespace rans0m
                     WaveOutEvent? output = null;
                     try
                     {
+                        // OGG is not supported by Mp3FileReader; skip it cleanly.
+                        if (line.File.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase))
+                            continue;
+
                         stream = Global.GetResourceSteam("Sounds/Noli/" + line.File);
                         reader = line.File.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
                             ? new WaveFileReader(stream)
@@ -119,6 +123,7 @@ namespace rans0m
                     }
                     catch
                     {
+                        _isPlaying = false;
                         output?.Dispose();
                         reader?.Dispose();
                         stream?.Dispose();
