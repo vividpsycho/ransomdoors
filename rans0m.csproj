@@ -8,7 +8,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\CD-1.ico</ApplicationIcon>
     <AssemblyName>JX1DX1</AssemblyName>
-    <Version>3.0.3.0</Version>
+    <Version>3.0.4.0</Version>
     <Company>JX1DX1</Company>
     <Copyright>JX1DX1</Copyright>
     <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
