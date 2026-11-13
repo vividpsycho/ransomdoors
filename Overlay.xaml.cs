@@ -343,7 +343,7 @@ namespace rans0m
             img_stopsign.Opacity = 100;
             Global.CenterControl(img_idle);
             img_idle.Margin = new Thickness(img_idle.Margin.Left, img_idle.Margin.Top + 50, 0, 0);
-            Background = new SolidColorBrush(Color.FromRgb(35, 0, 99));
+            Background = new SolidColorBrush(Color.FromRgb(40, 0, 0));
 
             await Task.Delay(500); // End of spy phase
 
@@ -352,7 +352,7 @@ namespace rans0m
 
             // Hide the warning sign, show Ransom face's on the center with a red background
             img_stopsign.Opacity = 0;
-            Background = new SolidColorBrush(Color.FromArgb(100, 35, 0, 99));
+            Background = new SolidColorBrush(Color.FromArgb(100, 100, 0, 0));
 
             int waitTime = mouseMoved ? 25 : 100;
             await Task.Delay(waitTime);
@@ -371,7 +371,7 @@ namespace rans0m
             Global.CenterControl(img_attack);
             Thickness imgAttackCenter = img_attack.Margin; // Store the center position of the attack image for the shake effect
             img_attack.Opacity = 100;
-            Background = new SolidColorBrush(Color.FromRgb(48, 0, 91));
+            Background = new SolidColorBrush(Color.FromRgb(120, 0, 0));
             staticBg.Opacity = 0.05;
 
             // Ransom Face Shake Effect
@@ -391,8 +391,8 @@ namespace rans0m
                 EndPoint = new Point(0.5, 1)
             };
 
-            gradientBrush.GradientStops.Add(new GradientStop(Color.FromArgb(255, 254, 225, 127), 0));
-            gradientBrush.GradientStops.Add(new GradientStop(Color.FromArgb(255, 181, 168, 123), 0.5));
+            gradientBrush.GradientStops.Add(new GradientStop(Color.FromArgb(255, 204, 0, 0), 0));
+            gradientBrush.GradientStops.Add(new GradientStop(Color.FromArgb(255, 150, 0, 0), 0.5));
             gradientBrush.GradientStops.Add(new GradientStop(Color.FromArgb(255, 204, 0, 0), 1));
 
             bool effect = true;
@@ -410,7 +410,7 @@ namespace rans0m
                     txt_download.Content = "SYNCHRONIZING...";
                     await Task.Delay(120);
                     txt_download.Content = "SYNCHRONIZING";
-                    txt_download.Foreground = new SolidColorBrush(Color.FromRgb(254, 225, 127));
+                    txt_download.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                     await Task.Delay(120);
                 }
 
@@ -465,13 +465,13 @@ namespace rans0m
         {
 
             // Red Flash
-            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 35, 0, 99));
+            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             Background = brush;
 
             ColorAnimation animation = new ColorAnimation
             {
                 From = Color.FromArgb(255, 255, 0, 0),
-                To = Color.FromArgb(0, 35, 0, 99),
+                To = Color.FromArgb(0, 255, 0, 0),
                 Duration = TimeSpan.FromMilliseconds(500)
             };
 
@@ -534,7 +534,7 @@ namespace rans0m
         public async Task CrashJumpscare()
         {
 
-            Background = new SolidColorBrush(Color.FromRgb(35, 0, 99));
+            Background = new SolidColorBrush(Color.FromRgb(40, 0, 0));
             staticBg.Opacity = 0.05;
 
             Global.CenterControl(img_attack);
