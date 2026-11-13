@@ -142,7 +142,7 @@ namespace rans0m
             {
                 Icon = System.Drawing.Icon.ExtractAssociatedIcon(Environment.ProcessPath) ?? System.Drawing.SystemIcons.Application,
                 ContextMenuStrip = trayMenu,
-                Text = "RANS0M",
+                Text = "JX1DX1",
                 Visible = true
             };
         }
@@ -409,16 +409,16 @@ namespace rans0m
             {
                 while (effect)
                 {
-                    txt_download.Content = "DOWNLOADING";
+                    txt_download.Content = "SYNCHRONIZING";
                     txt_download.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                     await Task.Delay(120);
-                    txt_download.Content = "DOWNLOADING.";
+                    txt_download.Content = "SYNCHRONIZING.";
                     await Task.Delay(120);
-                    txt_download.Content = "DOWNLOADING..";
+                    txt_download.Content = "SYNCHRONIZING..";
                     await Task.Delay(120);
-                    txt_download.Content = "DOWNLOADING...";
+                    txt_download.Content = "SYNCHRONIZING...";
                     await Task.Delay(120);
-                    txt_download.Content = "DOWNLOADING";
+                    txt_download.Content = "SYNCHRONIZING";
                     txt_download.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                     await Task.Delay(120);
                 }
