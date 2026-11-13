@@ -30,12 +30,8 @@ namespace rans0m
             txt_timer.Text = $"{Global.ransomTimeLeft / 60:D2}:{Global.ransomTimeLeft % 60:D2}";
             Global.RandomPosWindow(this);
 
-            // Init 9 taunt windows
-            for (int i = 0; i < 9; i++)
-            {
-                TauntWindow tauntWindow = new TauntWindow();
-                tauntWindow.Show();
-            }
+            // One voice line at a time; the title bar shows the matching transcript.
+            NoliVoiceLines.TryPlayRandom(this);
 
             Global.GlitchIdle(this, true);
         }
