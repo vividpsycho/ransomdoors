@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rans0m"
         mc:Ignorable="d"
-        Title="Configuration" Height="582" Width="302" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="JX1DX1 Configuration" Height="582" Width="302" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -15,7 +15,7 @@
                 <GradientStop Color="#FF30005B" Offset="0.283"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="110" Margin="10,10,0,0" VerticalAlignment="Top" Width="107" Source="/Assets/Starlight.png" RenderTransformOrigin="0.525,0.537">
+        <Image HorizontalAlignment="Left" Height="110" Margin="10,10,0,0" VerticalAlignment="Top" Width="107" Source="/Assets/Taunts/user_reference_1.png" RenderTransformOrigin="0.525,0.537">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -25,7 +25,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <TextBlock HorizontalAlignment="Left" Margin="118,34,0,0" TextWrapping="Wrap" Text="Ransom's Configuration" VerticalAlignment="Top" Height="68" Width="164" FontWeight="Bold" FontFamily="Nyala" FontSize="25">
+        <TextBlock HorizontalAlignment="Left" Margin="118,34,0,0" TextWrapping="Wrap" Text="JX1DX1 Control" VerticalAlignment="Top" Height="68" Width="164" FontWeight="Bold" FontFamily="Nyala" FontSize="25">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFFEDF77"/>
@@ -50,25 +50,25 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground>
         </TextBlock>
-        <GroupBox HorizontalAlignment="Left" Height="89" Header="Death Consequences" Margin="13,255,0,0" VerticalAlignment="Top" Width="259" Foreground="White" RenderTransformOrigin="0.5,0.5"/>
+        <GroupBox HorizontalAlignment="Left" Height="89" Header="Session Failure" Margin="13,255,0,0" VerticalAlignment="Top" Width="259" Foreground="White" RenderTransformOrigin="0.5,0.5"/>
         <TextBox x:Name="tb_cmd" HorizontalAlignment="Left" Height="20" Margin="23,314,0,0" TextWrapping="Wrap" Text="shutdown /s /t 0" VerticalAlignment="Top" Width="242" MaxLines="1" MaxLength="500" IsEnabled="False" TextChanged="FieldUpdated"/>
-        <CheckBox x:Name="cb_cmdOnDeath" Content="Custom command on death" HorizontalAlignment="Left" Margin="23,296,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
-        <CheckBox x:Name="cb_crashOnDeath" Content="Crash on death" HorizontalAlignment="Left" Margin="23,275,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
+        <CheckBox x:Name="cb_cmdOnDeath" Content="Run custom command on failure" HorizontalAlignment="Left" Margin="23,296,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
+        <CheckBox x:Name="cb_crashOnDeath" Content="Shut down on failure" HorizontalAlignment="Left" Margin="23,275,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
         <GroupBox HorizontalAlignment="Left" Height="148" Header="Items" Margin="13,344,0,0" VerticalAlignment="Top" Width="259" Foreground="White" RenderTransformOrigin="0.5,0.5"/>
         <RadioButton x:Name="rb_userFolderMode" Content="Spawns in your own folders" HorizontalAlignment="Left" Margin="23,361,0,0" VerticalAlignment="Top" GroupName="CoinsMode" Foreground="White" Click="FieldUpdated"/>
         <RadioButton x:Name="rb_drawerMode" Content="Spawns in &quot;drawers&quot;" HorizontalAlignment="Left" Margin="23,381,0,0" VerticalAlignment="Top" GroupName="CoinsMode" Foreground="White" Click="FieldUpdated"/>
-        <TextBlock HorizontalAlignment="Left" Height="19" Margin="23,397,0,0" TextWrapping="Wrap" Text="Ransom Amount" VerticalAlignment="Top" Width="122" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="23,397,0,0" TextWrapping="Wrap" Text="Signal Fragments" VerticalAlignment="Top" Width="122" Foreground="White"/>
         <TextBox x:Name="tb_ransomAmount" HorizontalAlignment="Left" Height="21" Margin="23,416,0,0" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" Width="242" MaxLines="1" MaxLength="7" local:NumericBehavior.NumericOnly="True" TextChanged="FieldUpdated"/>
-        <TextBlock HorizontalAlignment="Left" Height="19" Margin="23,204,0,0" TextWrapping="Wrap" Text="Ransom Duration" VerticalAlignment="Top" Width="122" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="23,204,0,0" TextWrapping="Wrap" Text="Session Duration" VerticalAlignment="Top" Width="122" Foreground="White"/>
         <TextBox x:Name="tb_duration" HorizontalAlignment="Left" Height="21" Margin="23,223,0,0" TextWrapping="Wrap" Text="90" VerticalAlignment="Top" Width="115" MaxLines="1" MaxLength="5" local:NumericBehavior.NumericOnly="True" TextChanged="FieldUpdated"/>
-        <CheckBox x:Name="cb_spawnAutomatically" Content="Spawn Automatically" HorizontalAlignment="Left" Margin="23,140,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
-        <Button x:Name="btn_spawn" Content="Spawn Manually" HorizontalAlignment="Left" Height="21" Margin="147,223,0,0" VerticalAlignment="Top" Width="115" Background="White" Click="btn_spawn_Click"/>
+        <CheckBox x:Name="cb_spawnAutomatically" Content="Appear Automatically" HorizontalAlignment="Left" Margin="23,140,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
+        <Button x:Name="btn_spawn" Content="Start Session" HorizontalAlignment="Left" Height="21" Margin="147,223,0,0" VerticalAlignment="Top" Width="115" Background="White" Click="btn_spawn_Click"/>
         <CheckBox x:Name="cb_a90" Content="A-90 Mode" HorizontalAlignment="Left" Margin="161,140,0,0" VerticalAlignment="Top" Foreground="White" Click="FieldUpdated"/>
         <TextBlock HorizontalAlignment="Left" Height="19" Margin="23,442,0,0" TextWrapping="Wrap" Text="Crucifix Chance" VerticalAlignment="Top" Width="122" Foreground="White"/>
         <TextBox x:Name="tb_crucChance" HorizontalAlignment="Left" Height="21" Margin="23,461,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="115" MaxLines="1" MaxLength="5" local:NumericBehavior.NumericOnly="True" TextChanged="FieldUpdated"/>
         <TextBlock HorizontalAlignment="Left" Height="19" Margin="147,442,0,0" TextWrapping="Wrap" Text="Honeypot Chance" VerticalAlignment="Top" Width="122" Foreground="White"/>
         <TextBox x:Name="tb_honeyChance" HorizontalAlignment="Left" Height="21" Margin="147,461,0,0" TextWrapping="Wrap" Text="25" VerticalAlignment="Top" Width="115" MaxLines="1" MaxLength="5" local:NumericBehavior.NumericOnly="True" TextChanged="FieldUpdated"/>
-        <Image HorizontalAlignment="Left" Height="44" Margin="44,46,0,0" VerticalAlignment="Top" Width="45" Source="/Assets/ransom_idle.png" RenderTransformOrigin="0.525,0.537">
+        <Image HorizontalAlignment="Left" Height="44" Margin="44,46,0,0" VerticalAlignment="Top" Width="45" Source="/Assets/Taunts/user_reference_2.png" RenderTransformOrigin="0.525,0.537">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
