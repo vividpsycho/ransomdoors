@@ -12,23 +12,12 @@ namespace rans0m
     {
         public static Overlay? overlayWindow;
         // Titles used by the pop up windows
-        public static readonly List<string> tauntTitles = new() {
-            "RANS0M",
-            "MOSNAR",
-            "RANSOM",
-            "M0NARS",
-            "YOU ARE AN IDIOT",
-            "Untitled",
-            "Untitled (3)",
-            "I FOUND YOU",
-            "RANSOM.exe",
-            "RAANNNSSSSOOOOOMMMMMM",
-            "times up",
-            "GIVE MONEY",
-            "ERROR",
-            "DHAUFGH",
-            "_________",
-            "IMG.JPG"
+        public static readonly List<string> tauntTitles = new()
+        {
+            "JX1DX1", "JX1DX1.exe", "YOU.ARE.NOT.ALONE", "I.FOUND.YOU",
+            "LOOK.BEHIND.YOU", "NO.ESCAPE", "STAY.STILL", "CONNECTION.LOST",
+            "WHO.IS.THERE", "IT.SEES.YOU", "NULL", "UNTITLED", "IMG_0001",
+            "SESSION.OPEN", "DO.NOT.BLINK", "I.AM.STILL.HERE"
         };
 
         // Images used by the pop up windows
@@ -49,7 +38,7 @@ namespace rans0m
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/idiot.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/tauntface.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/tauntflower.png"),
-                        // User-provided RANS0M/JX1DX1 reference artwork.
+                        // User-provided JX1DX1 reference artwork.
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_1.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_2.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_3.jpg"),
