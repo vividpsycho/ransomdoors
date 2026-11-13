@@ -7,9 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\CD-1.ico</ApplicationIcon>
-    <Version>2.1.0.0</Version>
-    <Company>Ixar</Company>
-    <Copyright>Ixar</Copyright>
+    <AssemblyName>JX1DX1</AssemblyName>
+    <Version>3.0.0.0</Version>
+    <Company>JX1DX1</Company>
+    <Copyright>JX1DX1</Copyright>
     <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
   </PropertyGroup>
 
