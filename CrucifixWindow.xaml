@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:rans0m"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         mc:Ignorable="d"
-        Title="RANS0M" Height="400" Width="560" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True"
+        Title="JX1DX1" Height="400" Width="560" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" Loaded="Window_Loaded">
     <Grid>
         <Image x:Name="img_repent" Stretch="Uniform"
-               gif:AnimationBehavior.SourceUri="/Assets/repent.gif"
+               gif:AnimationBehavior.SourceUri="/Assets/Taunts/jx1dx1.gif"
                gif:AnimationBehavior.AutoStart="True"
                gif:AnimationBehavior.RepeatBehavior="1x"
                gif:AnimationBehavior.AnimationCompleted="Img_AnimationCompleted"/>
