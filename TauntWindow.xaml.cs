@@ -15,7 +15,8 @@ namespace rans0m
             "pack://application:,,,/Assets/static.gif",
             "pack://application:,,,/Assets/ransom_attack.gif",
             "pack://application:,,,/Assets/red_vignette.gif",
-            "pack://application:,,,/Assets/repent.gif"
+            "pack://application:,,,/Assets/repent.gif",
+            "pack://application:,,,/Assets/Taunts/jx1dx1.gif"
         };
 
         public TauntWindow()
