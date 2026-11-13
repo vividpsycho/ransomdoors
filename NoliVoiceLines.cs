@@ -73,27 +73,61 @@ namespace rans0m
             new("Jx1killdeivy.wav", "I.HAVE.ALWAYS.BEEN.HERE")
         };
 
+        private static readonly object PlaybackGate = new();
+        private static bool _isPlaying;
+
         public static bool TryPlayRandom(Window window)
         {
-            foreach (int index in Enumerable.Range(0, Lines.Length).OrderBy(_ => Global.rng.Next()))
+            lock (PlaybackGate)
             {
-                VoiceLine line = Lines[index];
-                try
+                if (_isPlaying)
                 {
-                    Stream stream = Global.GetResourceSteam("Sounds/Noli/" + line.File);
-                    WaveStream reader = line.File.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
-                        ? new WaveFileReader(stream) : new Mp3FileReader(stream);
-                    var output = new WaveOutEvent();
-                    output.Init(reader);
-                    output.PlaybackStopped += (_, _) => { output.Dispose(); reader.Dispose(); };
-                    string caption = Regex.Replace(line.Caption ?? "", @"\[[^\]]*\]", "").Trim();
-                    window.Title = string.IsNullOrWhiteSpace(caption) ? "JX1DX1" : caption;
-                    output.Play();
-                    return true;
+                    window.Title = "JX1DX1";
+                    return false;
                 }
-                catch { }
+
+                foreach (VoiceLine line in Lines.OrderBy(_ => Global.rng.Next()))
+                {
+                    Stream? stream = null;
+                    WaveStream? reader = null;
+                    WaveOutEvent? output = null;
+                    try
+                    {
+                        stream = Global.GetResourceSteam("Sounds/Noli/" + line.File);
+                        reader = line.File.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
+                            ? new WaveFileReader(stream)
+                            : new Mp3FileReader(stream);
+                        output = new WaveOutEvent();
+                        output.Init(reader);
+
+                        string caption = Regex.Replace(line.Caption ?? "", @"\\[[^\\]]*\\]", "").Trim();
+                        window.Title = string.IsNullOrWhiteSpace(caption) ? "JX1DX1" : caption;
+
+                        _isPlaying = true;
+                        WaveOutEvent activeOutput = output;
+                        WaveStream activeReader = reader;
+                        Stream activeStream = stream;
+                        output.PlaybackStopped += (_, _) =>
+                        {
+                            lock (PlaybackGate) _isPlaying = false;
+                            activeOutput.Dispose();
+                            activeReader.Dispose();
+                            activeStream.Dispose();
+                        };
+                        output.Play();
+                        return true;
+                    }
+                    catch
+                    {
+                        output?.Dispose();
+                        reader?.Dispose();
+                        stream?.Dispose();
+                    }
+                }
+
+                window.Title = "JX1DX1";
+                return false;
             }
-            return false;
         }
     }
 }
