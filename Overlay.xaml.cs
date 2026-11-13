@@ -533,7 +533,6 @@ namespace rans0m
         /// </summary>
         public async Task CrashJumpscare()
         {
-            attackSound.Play();
 
             Background = new SolidColorBrush(Color.FromRgb(100, 0, 0));
             staticBg.Opacity = 0.05;
