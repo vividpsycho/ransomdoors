@@ -1,17 +1,13 @@
 using System.Windows;
 using NAudio.Wave;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace rans0m
 {
-    /// <summary>
-    /// Random JX1DX1 voice lines and their exact captions from the FORSAKEN wiki.
-    /// Audio files are embedded under Assets/Sounds/Noli by the repository fetch workflow.
-    /// </summary>
     internal static class NoliVoiceLines
     {
         private sealed record VoiceLine(string File, string Caption);
-
         private static readonly VoiceLine[] Lines =
         {
             new("JX1DX1Intro1.mp3", "JUST.HOW.REAL.AM.I"),
@@ -23,7 +19,7 @@ namespace rans0m
             new("JX1DX1VoidRushStartup3.mp3", "DO.NOT.BLINK"),
             new("JX1DX1VoidRushSlam1.mp3", "YOU.ARE.NOT.PERCEPTIVE"),
             new("JX1DX1VoidRushSlam2.mp3", "ONE.WITH.THE(PAVEMENT)"),
-            new("JX1DX1VoidRushCrash.mp3", "[LAUGHTER]"),
+            new("JX1DX1VoidRushCrash.mp3", ""),
             new("JX1DX1Nova1.mp3", "TICK.TOCK"),
             new("JX1DX1Nova2.mp3", "TARGET.MARKED"),
             new("JX1DX1Nova3.mp3", "STAY(STILL).WILL.YOU"),
@@ -31,7 +27,7 @@ namespace rans0m
             new("JX1DX1ObservantStartup2.mp3", "MY.MANY(EYES)"),
             new("JX1DX1ObservantTeleport1.mp3", "PEEK.A.BOO"),
             new("JX1DX1ObservantTeleport2.mp3", "SCRIPT(INJECTED)"),
-            new("JX1DX1Hallucination.mp3", "[LAUGHTER]"),
+            new("JX1DX1Hallucination.mp3", ""),
             new("JX1DX1Stun1.mp3", "I.CAN.SEE(YOU).BEHIND.THAT.SCREEN"),
             new("JX1DX1Stun2.mp3", "ONLY.A.SETBACK"),
             new("JX1DX1Stun3.mp3", "RELISH.THE.FEEL.OF.YOUR(BREATH)"),
@@ -68,9 +64,9 @@ namespace rans0m
             new("JX1DX1Taunt2.mp3", "YOUR.ACUMEN.IS.LACKING"),
             new("JX1DX1Rage1.mp3", "STOP.WORRYING"),
             new("JX1DX1Rage2.mp3", "THE.CLOCK.IS.TICKING"),
-            new("JX1DX1Laugh1.mp3", "[LAUGHTER]"),
-            new("JX1DX1Laugh2.mp3", "[LONG.CHUCKLE]"),
-            new("JX1DX1Laugh3.mp3", "[SHORT.CHUCKLE]"),
+            new("JX1DX1Laugh1.mp3", ""),
+            new("JX1DX1Laugh2.mp3", ""),
+            new("JX1DX1Laugh3.mp3", ""),
             new("JX1DX1IdleUnused1.mp3", "PERHAPS.YOU.WILL.BE.NEXT(PLAYER)"),
             new("JX1DX1IdleUnused2.mp3", "YOU.ARE.HEARTLESS.WE.WILL.GET.ALONG.FINE"),
             new("Jx1LMSthing.wav", "OH.HOW.FUNNY.IT.IS. NO.MATTER.HOW.FAR.YOU.THINK.YOU.CAN.RUN. I.WILL.ALWAYS.BE.THERE. RIGHT.BEHIND.YOU."),
@@ -79,35 +75,24 @@ namespace rans0m
 
         public static bool TryPlayRandom(Window window)
         {
-            if (Lines.Length == 0) return false;
-
-            // Try several entries so a missing/unavailable asset does not prevent a taunt.
-            foreach (int index in Enumerable.Range(0, Lines.Length).OrderBy(_ => Global.rng.Next()).Take(Lines.Length))
+            foreach (int index in Enumerable.Range(0, Lines.Length).OrderBy(_ => Global.rng.Next()))
             {
                 VoiceLine line = Lines[index];
                 try
                 {
                     Stream stream = Global.GetResourceSteam("Sounds/Noli/" + line.File);
                     WaveStream reader = line.File.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
-                        ? new WaveFileReader(stream)
-                        : new Mp3FileReader(stream);
+                        ? new WaveFileReader(stream) : new Mp3FileReader(stream);
                     var output = new WaveOutEvent();
                     output.Init(reader);
-                    output.PlaybackStopped += (_, _) =>
-                    {
-                        output.Dispose();
-                        reader.Dispose();
-                    };
-                    window.Title = line.Caption;
+                    output.PlaybackStopped += (_, _) => { output.Dispose(); reader.Dispose(); };
+                    string caption = Regex.Replace(line.Caption ?? "", @"\[[^\]]*\]", "").Trim();
+                    window.Title = string.IsNullOrWhiteSpace(caption) ? "JX1DX1" : caption;
                     output.Play();
                     return true;
                 }
-                catch
-                {
-                    // This voice line has not been downloaded/embedded yet; try another.
-                }
+                catch { }
             }
-
             return false;
         }
     }
