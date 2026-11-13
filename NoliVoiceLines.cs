@@ -100,7 +100,7 @@ namespace rans0m
                         output = new WaveOutEvent();
                         output.Init(reader);
 
-                        string caption = Regex.Replace(line.Caption ?? "", @"\\[[^\\]]*\\]", "").Trim();
+                        string caption = Regex.Replace(line.Caption ?? "", @"\[[^\]]*\]", "").Trim();
                         window.Title = string.IsNullOrWhiteSpace(caption) ? "JX1DX1" : caption;
 
                         _isPlaying = true;
