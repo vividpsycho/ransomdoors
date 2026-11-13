@@ -50,9 +50,9 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.0.1
+          tag_name: v3.0.2
           target_commitish: ${{ github.sha }}
-          name: JX1DX1 v3.0.1
+          name: JX1DX1 v3.0.2
           body: |
             Windows x64 release of JX1DX1.
 
