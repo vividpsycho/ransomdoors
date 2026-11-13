@@ -201,7 +201,7 @@ namespace rans0m
                     {
                         if (divideAndTaunt)
                         {
-                            if (Global.rng.Next(1, 100) <= 2)
+                            if (Global.rng.Next(1, 100) <= 2 && !WpfApplication.Current.Windows.OfType<TauntWindow>().Any())
                             {
                                 var (w, h) = OverlaySizeDips();
                                 x = Global.rng.Next(0, (int)Math.Max(1, w - ElementWidth(control)));
