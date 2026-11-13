@@ -17,6 +17,7 @@ namespace rans0m
         {
             Global.HideSystemMenu(this);
             Title = "JX1DX1";
+            NoliVoiceLines.TryPlayRandom(this);
 
             // Exactly one visual per popup: either one supplied still or the supplied GIF.
             Width = 420;
