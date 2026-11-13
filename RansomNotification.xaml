@@ -12,7 +12,7 @@
             <RowDefinition Height="0*"/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
-        <Image HorizontalAlignment="Left" Height="188" Margin="28,12,0,0" VerticalAlignment="Top" Width="188" Source="/Assets/Taunts/user_reference_1.png" Stretch="UniformToFill"/>
+        <Image x:Name="img_ransom" HorizontalAlignment="Left" Height="188" Margin="28,12,0,0" VerticalAlignment="Top" Width="188" Source="/Assets/Taunts/user_reference_1.png" Stretch="UniformToFill"/>
         <TextBlock HorizontalAlignment="Left" Margin="233,9,0,0" TextWrapping="Wrap" Text="YOUR FILES HAVE BEEN ENCRYPTED" VerticalAlignment="Top" Foreground="White" FontSize="44" FontFamily="Consolas" FontWeight="Bold" Width="267" Height="154" TextAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Margin="12,166,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Consolas" Width="520" Height="109" TextAlignment="Center" Background="Black" Padding="0,10,0,0">
             <Run Text="IF YOU DO NOT PAY THIS RANSOM BEFORE THE TIMER ENDS, YOUR FILES WILL BE " Foreground="White"/>
