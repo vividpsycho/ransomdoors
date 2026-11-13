@@ -55,6 +55,28 @@ namespace rans0m
 
         public static Random rng = new Random();
 
+        private static readonly object TauntGate = new();
+        private static bool _tauntWindowOpen;
+        private static DateTime _nextTauntTime = DateTime.MinValue;
+
+        public static bool TryReserveTauntWindow()
+        {
+            lock (TauntGate)
+            {
+                if (_tauntWindowOpen || DateTime.UtcNow < _nextTauntTime)
+                    return false;
+                _tauntWindowOpen = true;
+                _nextTauntTime = DateTime.UtcNow.AddSeconds(12);
+                return true;
+            }
+        }
+
+        public static void ReleaseTauntWindow()
+        {
+            lock (TauntGate)
+                _tauntWindowOpen = false;
+        }
+
         /// <summary>
         /// Size of the overlay in DIPs. Falls back to the primary work area (also DIPs)
         /// if the overlay isn't laid out yet, so callers never mix pixel and DIP units.
@@ -201,13 +223,17 @@ namespace rans0m
                     {
                         if (divideAndTaunt)
                         {
-                            if (Global.rng.Next(1, 100) <= 2 && !WpfApplication.Current.Windows.OfType<TauntWindow>().Any())
+                            if (Global.rng.Next(1, 100) <= 2 && TryReserveTauntWindow())
                             {
-                                var (w, h) = OverlaySizeDips();
-                                x = Global.rng.Next(0, (int)Math.Max(1, w - ElementWidth(control)));
-                                y = Global.rng.Next(0, (int)Math.Max(1, h - ElementHeight(control)));
-                                TauntWindow tauntWindow = new TauntWindow();
-                                tauntWindow.Show();
+                                try
+                                {
+                                    TauntWindow tauntWindow = new TauntWindow();
+                                    tauntWindow.Show();
+                                }
+                                catch
+                                {
+                                    ReleaseTauntWindow();
+                                }
                             }
                         }
 
