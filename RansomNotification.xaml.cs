@@ -29,6 +29,7 @@ namespace rans0m
             // Init the window
             txt_timer.Text = $"{Global.ransomTimeLeft / 60:D2}:{Global.ransomTimeLeft % 60:D2}";
             Global.RandomPosWindow(this);
+            img_ransom.Source = Global.tauntImages[Global.rng.Next(Global.tauntImages.Count)];
 
             // One voice line at a time; the title bar shows the matching transcript.
             NoliVoiceLines.TryPlayRandom(this);
