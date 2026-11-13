@@ -12,10 +12,6 @@ namespace rans0m
 
         private static readonly string[] AnimatedTaunts =
         {
-            "pack://application:,,,/Assets/static.gif",
-            "pack://application:,,,/Assets/ransom_attack.gif",
-            "pack://application:,,,/Assets/red_vignette.gif",
-            "pack://application:,,,/Assets/repent.gif",
             "pack://application:,,,/Assets/Taunts/jx1dx1.gif"
         };
 
@@ -29,15 +25,8 @@ namespace rans0m
         {
             Global.HideSystemMenu(this);
 
-            try
-            {
-                Stream tauntSpawnStream = Global.GetResourceSteam("Sounds/tauntSpawn.wav");
-                _ = Task.Run(() => SoundHandle.Create(tauntSpawnStream).Play());
-            }
-            catch { }
-
             // Every taunt gets an independently randomized title, visual, size and lifetime.
-            Title = Global.tauntTitles[Global.rng.Next(Global.tauntTitles.Count)];
+            Title = "JX1DX1";
             NoliVoiceLines.TryPlayRandom(this);
 
             bool useAnimation = Global.rng.Next(100) < 55;
@@ -71,9 +60,6 @@ namespace rans0m
         {
             await Task.Delay(Global.rng.Next(3500, 10001));
             if (_closed) return;
-
-            try { SoundHandle.Create(Global.GetResourceSteam("Sounds/tauntLeave.wav")).Play(); }
-            catch { }
 
             Close();
         }
