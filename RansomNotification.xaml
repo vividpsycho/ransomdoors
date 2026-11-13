@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rans0m"
         mc:Ignorable="d"
-        Title="JX1DX1" Height="400" Width="560" Background="#FFF82B1C" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" AllowDrop="True" Loaded="Window_Loaded" DragEnter="Window_DragEnter" Drop="Window_Drop">
+        Title="JX1DX1" Height="400" Width="560" Background="#FF120000" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" AllowDrop="True" Loaded="Window_Loaded" DragEnter="Window_DragEnter" Drop="Window_Drop">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,10 +18,10 @@
             <Run Text="IF YOU DO NOT PAY THIS RANSOM BEFORE THE TIMER ENDS, YOUR FILES WILL BE " Foreground="White"/>
             <Run Text="UNRECOVERABLE BY ANY MEANS." Foreground="Red"/>
         </TextBlock>
-        <TextBlock x:Name="txt_timer" HorizontalAlignment="Left" Margin="218,286,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="TIME: 00:00" VerticalAlignment="Top" Foreground="Black" FontSize="46" FontFamily="Consolas" FontWeight="Bold" Width="314" Height="61" TextAlignment="Center" Background="Red"/>
-        <Border BorderBrush="#FFFFCF25" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="62" Margin="12,286,0,0" VerticalAlignment="Top" Width="189" Background="Black"/>
-        <TextBlock x:Name="txt_ransomLeft" HorizontalAlignment="Left" Margin="20,288,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="500" VerticalAlignment="Top" Foreground="#FFFFCF25" FontSize="48" FontFamily="Consolas" FontWeight="Bold" Width="171" Height="59"/>
-        <Image HorizontalAlignment="Left" Height="58" Margin="133,288,0,0" VerticalAlignment="Top" Width="59" Source="/Assets/Gold.png"/>
+        <TextBlock x:Name="txt_timer" HorizontalAlignment="Left" Margin="218,286,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="TIME: 00:00" VerticalAlignment="Top" Foreground="White" FontSize="46" FontFamily="Consolas" FontWeight="Bold" Width="314" Height="61" TextAlignment="Center" Background="#FFB00000"/>
+        <Border BorderBrush="#FFFF2020" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="62" Margin="12,286,0,0" VerticalAlignment="Top" Width="189" Background="Black"/>
+        <TextBlock x:Name="txt_ransomLeft" HorizontalAlignment="Left" Margin="20,288,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="500" VerticalAlignment="Top" Foreground="#FFFF3030" FontSize="48" FontFamily="Consolas" FontWeight="Bold" Width="171" Height="59"/>
+        <Image HorizontalAlignment="Left" Height="58" Margin="133,288,0,0" VerticalAlignment="Top" Width="59" Source="/Assets/CD-1.png"/>
         <Border BorderBrush="White" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="109" Margin="12,166,0,0" VerticalAlignment="Top" Width="520"/>
         <Border BorderBrush="White" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="62" Margin="218,286,0,0" VerticalAlignment="Top" Width="314"/>
     </Grid>
