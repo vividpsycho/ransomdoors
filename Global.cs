@@ -27,6 +27,14 @@ namespace rans0m
                 {
                     _tauntImages = new()
                     {
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/glitch1.jpg"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/glitch2.jpeg"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/glitch3.jpg"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/glitch4.jpg"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/glitch5.jpg"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/idiot.png"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/tauntface.png"),
+                        LoadBitmapImage("pack://application:,,,/Assets/Taunts/tauntflower.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_1.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_2.png"),
                         LoadBitmapImage("pack://application:,,,/Assets/Taunts/user_reference_3.jpg"),
