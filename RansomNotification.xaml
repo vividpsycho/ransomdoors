@@ -1,29 +1,64 @@
-﻿<Window x:Class="rans0m.RansomNotification"
+<Window x:Class="rans0m.RansomNotification"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:rans0m"
-        mc:Ignorable="d"
-        Title="RANS0M" Height="400" Width="560" Background="#FFF82B1C" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" AllowDrop="True" Loaded="Window_Loaded" DragEnter="Window_DragEnter" Drop="Window_Drop">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0*"/>
-            <RowDefinition Height="0*"/>
-        </Grid.RowDefinitions>
-        <Image HorizontalAlignment="Left" Height="188" Margin="28,12,0,0" VerticalAlignment="Top" Width="188" Source="/Assets/ransom_idle.png"/>
-        <TextBlock HorizontalAlignment="Left" Margin="233,9,0,0" TextWrapping="Wrap" Text="YOUR FILES HAVE BEEN ENCRYPTED" VerticalAlignment="Top" Foreground="White" FontSize="44" FontFamily="Consolas" FontWeight="Bold" Width="267" Height="154" TextAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" Margin="12,166,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Consolas" Width="520" Height="109" TextAlignment="Center" Background="Black" Padding="0,10,0,0">
-            <Run Text="IF YOU DO NOT PAY THIS RANSOM BEFORE THE TIMER ENDS, YOUR FILES WILL BE " Foreground="White"/>
-            <Run Text="UNRECOVERABLE BY ANY MEANS." Foreground="Red"/>
-        </TextBlock>
-        <TextBlock x:Name="txt_timer" HorizontalAlignment="Left" Margin="218,286,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="TIME: 00:00" VerticalAlignment="Top" Foreground="Black" FontSize="46" FontFamily="Consolas" FontWeight="Bold" Width="314" Height="61" TextAlignment="Center" Background="Red"/>
-        <Border BorderBrush="#FFFFCF25" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="62" Margin="12,286,0,0" VerticalAlignment="Top" Width="189" Background="Black"/>
-        <TextBlock x:Name="txt_ransomLeft" HorizontalAlignment="Left" Margin="20,288,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="500" VerticalAlignment="Top" Foreground="#FFFFCF25" FontSize="48" FontFamily="Consolas" FontWeight="Bold" Width="171" Height="59"/>
-        <Image HorizontalAlignment="Left" Height="58" Margin="133,288,0,0" VerticalAlignment="Top" Width="59" Source="/Assets/Gold.png"/>
-        <Border BorderBrush="White" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="109" Margin="12,166,0,0" VerticalAlignment="Top" Width="520"/>
-
-        <Border BorderBrush="White" BorderThickness="2,2,2,2" HorizontalAlignment="Left" Height="62" Margin="218,286,0,0" VerticalAlignment="Top" Width="314"/>
-    </Grid>
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        Title="JX1DX1" Height="470" Width="650" MinHeight="470" MinWidth="650"
+        Background="#08090D" ResizeMode="NoResize" ShowInTaskbar="False"
+        Topmost="True" AllowDrop="True" Loaded="Window_Loaded"
+        DragEnter="Window_DragEnter" Drop="Window_Drop" WindowStartupLocation="CenterScreen">
+    <Border BorderBrush="#B51F35" BorderThickness="1" Background="#08090D" Padding="14">
+        <Grid>
+            <Grid.RowDefinitions><RowDefinition Height="48"/><RowDefinition Height="*"/><RowDefinition Height="94"/></Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Width="8" Height="8" Fill="#E52B45" Margin="0,0,10,0"/>
+                    <TextBlock Text="JX1DX1" Foreground="#F2F2F4" FontFamily="Consolas" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="  /  CONNECTION ESTABLISHED" Foreground="#8B8D98" FontFamily="Consolas" FontSize="10" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Grid.Column="1" Text="LIVE SESSION" Foreground="#D94B60" FontFamily="Consolas" FontSize="11" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,8,0,12">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="1.25*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                <Border Grid.Column="0" BorderBrush="#54202A" BorderThickness="1" Background="#030406" Margin="0,0,12,0" ClipToBounds="True">
+                    <Grid>
+                        <Image Stretch="UniformToFill" gif:AnimationBehavior.SourceUri="/Assets/Taunts/jx1dx1.gif" gif:AnimationBehavior.AutoStart="True"/>
+                        <Border Background="#22000000"/>
+                        <TextBlock Text="YOU HAVE BEEN NOTICED" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12" Foreground="White" FontFamily="Consolas" FontSize="12" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="THERE IS" Foreground="#777B87" FontFamily="Consolas" FontSize="12" Margin="0,0,0,5"/>
+                        <TextBlock Text="NO ESCAPE." Foreground="#F0EDF0" FontFamily="Consolas" FontSize="29" FontWeight="Bold" TextWrapping="Wrap"/>
+                        <TextBlock Text="Remain still. It already knows where you are." Foreground="#A5A7B0" FontFamily="Consolas" FontSize="12" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    </StackPanel>
+                    <UniformGrid Grid.Row="1" Columns="3" Height="76" Margin="0,12,0,0">
+                        <Border BorderBrush="#54202A" BorderThickness="1" Margin="0,0,5,0"><Image Source="/Assets/Taunts/user_reference_1.png" Stretch="UniformToFill"/></Border>
+                        <Border BorderBrush="#54202A" BorderThickness="1" Margin="0,0,5,0"><Image Source="/Assets/Taunts/user_reference_2.png" Stretch="UniformToFill"/></Border>
+                        <Border BorderBrush="#54202A" BorderThickness="1"><Image Source="/Assets/Taunts/user_reference_3.jpg" Stretch="UniformToFill"/></Border>
+                    </UniformGrid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="180"/></Grid.ColumnDefinitions>
+                <Border BorderBrush="#6B2733" BorderThickness="1" Background="#101116" Padding="12" Margin="0,0,12,0">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="COLLECT THE SIGNAL FRAGMENTS" Foreground="#A5A7B0" FontFamily="Consolas" FontSize="10"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                            <TextBlock x:Name="txt_ransomLeft" Text="500" Foreground="#F1D7DC" FontFamily="Consolas" FontSize="27" FontWeight="Bold"/>
+                            <TextBlock Text="  FRAGMENTS REMAINING" Foreground="#D94B60" FontFamily="Consolas" FontSize="10" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" BorderBrush="#B51F35" BorderThickness="1" Background="#250B11" Padding="8">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="TIME REMAINING" Foreground="#D94B60" FontFamily="Consolas" FontSize="10" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="txt_timer" Text="00:00" Foreground="White" FontFamily="Consolas" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
