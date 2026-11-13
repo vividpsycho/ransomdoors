@@ -19,7 +19,7 @@ public static class Config
 
     private static string GetConfigPath()
     {
-        return Path.Combine(AppContext.BaseDirectory, "ransomconfig.json");
+        return Path.Combine(AppContext.BaseDirectory, "jx1dx1config.json");
     }
 
     public static bool ConfigExists()
