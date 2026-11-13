@@ -42,7 +42,7 @@
                     <ScaleTransform x:Name="scaleTxtThx" ScaleX="1" ScaleY="1" />
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="img_entity" HorizontalAlignment="Left" Height="188" Margin="28,12,0,0" VerticalAlignment="Top" Width="188" Source="/Assets/Taunts/user_reference_1.png"/>
+            <Image x:Name="img_ransom" HorizontalAlignment="Left" Height="188" Margin="28,12,0,0" VerticalAlignment="Top" Width="188" Source="/Assets/Taunts/user_reference_1.png"/>
         </Grid>
     </Viewbox>
 </Window>
