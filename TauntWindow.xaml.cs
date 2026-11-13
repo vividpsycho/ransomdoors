@@ -9,7 +9,7 @@ namespace rans0m
     {
         private bool _closed;
 
-        private const string TenorGif = "https://media1.tenor.com/m/SpwFCUCPpiYAAAAd/jx1dx1-ihasafacelulz.gif";
+        private const string SuppliedGif = "pack://application:,,,/Assets/Taunts/jx1dx1.gif";
 
         public TauntWindow()
         {
@@ -31,13 +31,14 @@ namespace rans0m
                 Opacity = 0.35
             };
 
-            try
-            {
-                AnimationBehavior.SetSourceUri(tauntImage, new Uri(TenorGif));
-            }
-            catch
+            // Randomize between the supplied still images and the supplied GIF.
+            if (Global.rng.Next(2) == 0)
             {
                 tauntImage.Source = Global.tauntImages[Global.rng.Next(Global.tauntImages.Count)];
+            }
+            else
+            {
+                AnimationBehavior.SetSourceUri(tauntImage, new Uri(SuppliedGif));
             }
 
             Global.RandomPosWindow(this);
