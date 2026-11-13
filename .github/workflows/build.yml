@@ -1,4 +1,4 @@
-name: Build and Release RANS0M
+name: Build and Release JX1DX1
 
 on:
   push:
@@ -42,23 +42,23 @@ jobs:
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: RANS0M-win-x64
-          path: publish/rans0m.exe
+          name: JX1DX1-win-x64
+          path: publish/JX1DX1.exe
           if-no-files-found: error
           retention-days: 30
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.1.2
+          tag_name: v3.0.0
           target_commitish: ${{ github.sha }}
-          name: RANS0M v2.1.2
+          name: JX1DX1 v3.0.0
           body: |
-            Windows x64 release of RANS0M.
+            Windows x64 release of JX1DX1.
 
             - Self-contained single-file executable
             - Includes the project's embedded assets and voice-line audio
             - Requires Windows x64; .NET does not need to be installed separately
-          files: publish/rans0m.exe
+          files: publish/JX1DX1.exe
           fail_on_unmatched_files: true
           make_latest: true
